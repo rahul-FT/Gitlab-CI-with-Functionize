@@ -50,5 +50,5 @@ deploy:
   script:
     - sshpass -V
     - export SSHPASS=$USER_PASS
-    - print SSHPASS
+    - print $SSHPASS
     - sshpass -e ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/staging.rvsharma.com && git pull -f"
