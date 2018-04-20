@@ -2,7 +2,8 @@ stages:
   - lint-css
   - lint-js
   - unit-test
-  - deploy-prod
+  - deploy-stage
+  - ui-testing
 
 
 image: node:9.11.1
@@ -43,7 +44,7 @@ before_script:
  - apt-get update -qq && apt-get install -y -qq sshpass
 
 deploy:
-  stage: deploy-prod
+  stage: deploy-stage
   environment: Staging
   only:
     - master
@@ -52,3 +53,8 @@ deploy:
     - export SSHPASS=$USER_PASS
     - print $SSHPASS
     - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/staging.rvsharma.com && git pull -f"
+
+Functionize Testing:
+  stage: ui-testing
+  script:
+    - curl -I https://app.functionize.com/api/v1?method=processDeployment&actionFor=execute&deploymentid=6868c7a2bf517501f4ecf65f5d5a84dc&apiKey=19127a19e73dae4d20eebb158cf11aee
