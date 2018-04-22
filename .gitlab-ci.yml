@@ -3,7 +3,7 @@ stages:
   - lint-js
   - unit-test
   - deploy-staging
-  - functionizecli
+  - deploy-functionizecli
 
 image: node:9.11.1
 
