@@ -63,7 +63,7 @@ Functionize-cli Deployment:
     - echo "alias functionize-cli='node /opt/functionizecli/functionize.js'" >> ~/.bash_profile
     - source ~/.bash_profile
     - sed 's/"xxxxxxxxxx"/"9dd73eb3e026a06c809eaa09cd51fdb5"/g' config.js
-    - sed -i '"xxxxxx"/"ba3f54fb653e995f15c107ed5d876975"/g' config.js
+    - sed 's/"xxxxxx"/"ba3f54fb653e995f15c107ed5d876975"/g' config.js
     - echo "Running Orchestrations"
     - functionize run-deployment --depID 6868c7a2bf517501f4ecf65f5d5a84dc
     - run_id=$(echo $deploy_info | sed -n 's:.*runid"\:"\(.*\)"}.*:\1:p')
