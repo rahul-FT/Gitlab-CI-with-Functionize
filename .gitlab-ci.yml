@@ -56,7 +56,13 @@ deploy:
 Functionize-cli Deploying:
   stage: deploy-functionizecli
   script:
-    - git clone https://functionize@bitbucket.org/functionize/functionizecli.git /opt/functionizecli && cd /opt/functionizecli && npm install && npm install -g && echo "alias functionize-cli='node /opt/functionizecli/functionize.js'" >> ~/.bash_profile && source ~/.bash_profile
+    - git clone https://functionize@bitbucket.org/functionize/functionizecli.git /opt/functionizecli
+    - cd /opt/functionizecli
+    - npm install
+    - npm install -g
+    - mv config-sample.js config.js
+    - echo "alias functionize-cli='node /opt/functionizecli/functionize.js'" >> ~/.bash_profile
+    - source ~/.bash_profile
 
 
 Functionize Testing:
