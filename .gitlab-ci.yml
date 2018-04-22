@@ -1,58 +1,64 @@
 stages:
-  - lint-css
-  - lint-js
-  - unit-test
-  - deploy-stage
+  # - lint-css
+  # - lint-js
+  # - unit-test
+  # - deploy-staging
+  - deploy-functionizecli
   - ui-testing
-
 
 image: node:9.11.1
 
+# lint css:
+#   stage: lint-css
+#   before_script:
+#     - npm install
+#   cache:
+#     untracked: true
+#   only:
+#     - master
+#   script:
+#     - ./node_modules/gulp/bin/gulp.js lint-css
+#
+# lint js:
+#   stage: lint-js
+#   cache:
+#     untracked: true
+#     policy: pull
+#   only:
+#     - master
+#   script:
+#     - ./node_modules/gulp/bin/gulp.js lint-js
+#
+# run unit test:
+#   stage: unit-test
+#   cache:
+#     untracked: true
+#     policy: pull
+#   only:
+#     - master
+#   script:
+#     - ./node_modules/gulp/bin/gulp.js test
 
-lint css:
-  stage: lint-css
-  before_script:
-    - npm install
-  cache:
-    untracked: true
-  only:
-    - master
+# before_script:
+#  - apt-get update -qq && apt-get install -y -qq sshpass
+#
+# deploy:
+#   stage: deploy-staging
+#   environment: Staging
+#   only:
+#     - master
+#   script:
+#     - sshpass -V
+#     - export SSHPASS=$USER_PASS
+#     - print $SSHPASS
+#     - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/staging.rvsharma.com && git pull -f"
+
+Functionize-cli Deploying:
+  stage: deploy-functionizecli
   script:
-    - ./node_modules/gulp/bin/gulp.js lint-css
+    - git clone https://functionize@bitbucket.org/functionize/functionizecli.git /opt/functionizecli && cd /opt/functionizecli && npm install && npm install -g && echo "alias functionize-cli='node /opt/functionizecli/functionize.js'" >> ~/.bash_profile &&
+source ~/.bash_profile
 
-lint js:
-  stage: lint-js
-  cache:
-    untracked: true
-    policy: pull
-  only:
-    - master
-  script:
-    - ./node_modules/gulp/bin/gulp.js lint-js
-
-run unit test:
-  stage: unit-test
-  cache:
-    untracked: true
-    policy: pull
-  only:
-    - master
-  script:
-    - ./node_modules/gulp/bin/gulp.js test
-
-before_script:
- - apt-get update -qq && apt-get install -y -qq sshpass
-
-deploy:
-  stage: deploy-stage
-  environment: Staging
-  only:
-    - master
-  script:
-    - sshpass -V
-    - export SSHPASS=$USER_PASS
-    - print $SSHPASS
-    - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/staging.rvsharma.com && git pull -f"
 
 Functionize Testing:
   stage: ui-testing
