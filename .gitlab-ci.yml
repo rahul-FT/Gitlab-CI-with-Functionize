@@ -89,4 +89,3 @@ Functionize-cli Deployment:
           sleep $SLEEP
       done
       fi
-      fi
