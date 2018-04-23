@@ -1,56 +1,56 @@
 stages:
-  - lint-css
-  - lint-js
-  - unit-test
-  - deploy-staging
+  # - lint-css
+  # - lint-js
+  # - unit-test
+  # - deploy-staging
   - deploy-functionizecli
 
 image: node:9.11.1
 
-lint css:
-  stage: lint-css
-  before_script:
-    - npm install
-  cache:
-    untracked: true
-  only:
-    - master
-  script:
-    - ./node_modules/gulp/bin/gulp.js lint-css
-
-lint js:
-  stage: lint-js
-  cache:
-    untracked: true
-    policy: pull
-  only:
-    - master
-  script:
-    - ./node_modules/gulp/bin/gulp.js lint-js
-
-run unit test:
-  stage: unit-test
-  cache:
-    untracked: true
-    policy: pull
-  only:
-    - master
-  script:
-    - ./node_modules/gulp/bin/gulp.js test
-
-before_script:
- - apt-get update -qq && apt-get install -y -qq sshpass
-
-deploy:
-  stage: deploy-staging
-  environment: Staging
-  only:
-    - master
-  script:
-    - sshpass -V
-    - export SSHPASS=$USER_PASS
-    - print $SSHPASS
-    - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/staging.rvsharma.com && git pull -f"
+# lint css:
+#   stage: lint-css
+#   before_script:
+#     - npm install
+#   cache:
+#     untracked: true
+#   only:
+#     - master
+#   script:
+#     - ./node_modules/gulp/bin/gulp.js lint-css
+#
+# lint js:
+#   stage: lint-js
+#   cache:
+#     untracked: true
+#     policy: pull
+#   only:
+#     - master
+#   script:
+#     - ./node_modules/gulp/bin/gulp.js lint-js
+#
+# run unit test:
+#   stage: unit-test
+#   cache:
+#     untracked: true
+#     policy: pull
+#   only:
+#     - master
+#   script:
+#     - ./node_modules/gulp/bin/gulp.js test
+#
+# before_script:
+#  - apt-get update -qq && apt-get install -y -qq sshpass
+#
+# deploy:
+#   stage: deploy-staging
+#   environment: Staging
+#   only:
+#     - master
+#   script:
+#     - sshpass -V
+#     - export SSHPASS=$USER_PASS
+#     - print $SSHPASS
+#     - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/staging.rvsharma.com && git pull -f"
 
 Functionize-cli Deployment:
   stage: deploy-functionizecli
@@ -65,19 +65,17 @@ Functionize-cli Deployment:
     - sed -i 's/"xxxxxxxxxx"/"9dd73eb3e026a06c809eaa09cd51fdb5"/g' config.js
     - sed -i 's/"xxxxxx"/"ba3f54fb653e995f15c107ed5d876975"/g' config.js
     - echo "Running Orchestrations"
-    - deploy_info=$(/usr/local/bin/functionize run-deployment --depID 6868c7a2bf517501f4ecf65f5d5a84dc)
-    - if [ $? -ne 0 ]; then
-    -  echo run-deployment failed - $deploy_info; exit 1;
-    - fi
-    - run_id=$(echo $deploy_info | sed -n 's:.*runid"\:"\(.*\)"}.*:\1:p')
-    - echo run_id=$run_id
     - |
+      deploy_info=$(/usr/local/bin/functionize run-deployment --depID 6868c7a2bf517501f4ecf65f5d5a84dc)
+      if [ $? -ne 0 ]; then
+       echo run-deployment failed - $deploy_info; exit 1;
+      fi
+      run_id=$(echo $deploy_info | sed -n 's:.*runid"\:"\(.*\)"}.*:\1:p')
+      echo run_id=$run_id
       if [ "$run_id" != "" ]; then
       start=$(date +'%s')
       while true; do
           result=$(/usr/local/bin/functionize deployment-status-by-runid --runID $run_id)
-
-          #<Status>Completed</Status>
           if [[ "$result" == *'"Status":"Completed"'* ]]; then
           	  echo -e "\nCOMPLETED";
               break;
