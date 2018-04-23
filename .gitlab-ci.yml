@@ -72,7 +72,7 @@ Functionize-cli Deployment:
       fi
       run_id=$(echo $deploy_info | sed -n 's:.*runid"\:"\(.*\)"}.*:\1:p')
       echo run_id=$run_id
-      if [ "$run_id" != '' ]; then
+      if [ "$run_id" != "" ]; then
       start=$(date +'%s')
       while true; do
           result=$(/usr/local/bin/functionize deployment-status-by-runid --runID $run_id)
