@@ -72,11 +72,11 @@ Functionize-cli Deployment:
         start=$(date +'%s')
         while true; do
             result=$(/usr/local/bin/functionize deployment-status-by-runid --runID $run_id)
-            if [[ "$result" == *'"Status":"Completed"'* || *'"last_execution_status":"Passed"'* ]]; then
+            if [[ "$result" == *'"Status":"Completed"'* | *'"last_execution_status":"Passed"'* ]]; then
           	   echo -e "\nTest Case Passed";
                break;
             fi
-            if [[ "$result" == *'"Status":"Completed"'* || *'"last_execution_status":"Failure"'* ]]; then
+            if [[ "$result" == *'"Status":"Completed"'* | *'"last_execution_status":"Failure"'* ]]; then
           	   echo -e "\nTest Case Failed";
                exit 1;
             fi
