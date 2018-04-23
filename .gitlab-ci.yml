@@ -1,7 +1,6 @@
 stages:
   - lint-css
   - lint-js
-  - unit-test
   - deploy-staging
   - deploy-functionizecli
   - deploy-production
@@ -29,15 +28,6 @@ lint js:
   script:
     - ./node_modules/gulp/bin/gulp.js lint-js
 
-run unit test:
-  stage: unit-test
-  cache:
-    untracked: true
-    policy: pull
-  only:
-    - master
-  script:
-    - ./node_modules/gulp/bin/gulp.js test
 
 before_script:
  - apt-get update -qq && apt-get install -y -qq sshpass
