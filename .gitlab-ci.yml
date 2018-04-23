@@ -1,47 +1,47 @@
 stages:
-  # - lint-css
-  # - lint-js
-  # - deploy-staging
+  - lint-css
+  - lint-js
+  - deploy-staging
   - deploy-functionizecli
-  # - deploy-production
+  - deploy-production
 
 image: node:9.11.1
 
-# lint css:
-#   stage: lint-css
-#   before_script:
-#     - npm install
-#   cache:
-#     untracked: true
-#   only:
-#     - master
-#   script:
-#     - ./node_modules/gulp/bin/gulp.js lint-css
-#
-# lint js:
-#   stage: lint-js
-#   cache:
-#     untracked: true
-#     policy: pull
-#   only:
-#     - master
-#   script:
-#     - ./node_modules/gulp/bin/gulp.js lint-js
-#
-#
-# before_script:
-#  - apt-get update -qq && apt-get install -y -qq sshpass
+lint css:
+  stage: lint-css
+  before_script:
+    - npm install
+  cache:
+    untracked: true
+  only:
+    - master
+  script:
+    - ./node_modules/gulp/bin/gulp.js lint-css
 
-# Deploy Staging:
-#   stage: deploy-staging
-#   environment: Staging
-#   only:
-#     - master
-#   script:
-#     - sshpass -V
-#     - export SSHPASS=$USER_PASS
-#     - print $SSHPASS
-#     - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/staging.rvsharma.com && git pull -f"
+lint js:
+  stage: lint-js
+  cache:
+    untracked: true
+    policy: pull
+  only:
+    - master
+  script:
+    - ./node_modules/gulp/bin/gulp.js lint-js
+
+
+before_script:
+ - apt-get update -qq && apt-get install -y -qq sshpass
+
+Deploy Staging:
+  stage: deploy-staging
+  environment: Staging
+  only:
+    - master
+  script:
+    - sshpass -V
+    - export SSHPASS=$USER_PASS
+    - print $SSHPASS
+    - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/staging.rvsharma.com && git pull -f"
 
 Functionize-cli Deployment:
   stage: deploy-functionizecli
@@ -88,14 +88,14 @@ Functionize-cli Deployment:
           sleep $SLEEP
       done
       fi
-#
-# Deploy Production:
-#   stage: deploy-production
-#   environment: Production
-#   only:
-#     - master
-#   script:
-#     - sshpass -V
-#     - export SSHPASS=$USER_PASS
-#     - print $SSHPASS
-#     - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/rvsharma.com && git pull -f"
+
+Deploy Production:
+  stage: deploy-production
+  environment: Production
+  only:
+    - master
+  script:
+    - sshpass -V
+    - export SSHPASS=$USER_PASS
+    - print $SSHPASS
+    - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/rvsharma.com && git pull -f"
