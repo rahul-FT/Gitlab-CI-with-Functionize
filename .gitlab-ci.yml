@@ -66,6 +66,7 @@ Functionize-cli Deployment:
     - sed -i 's/"xxxxxx"/"ba3f54fb653e995f15c107ed5d876975"/g' config.js
     - echo "Running Orchestrations"
     - |
+      #!/bin/bash
       set +x
       TIMEOUT=3600
       SLEEP=30
@@ -91,5 +92,4 @@ Functionize-cli Deployment:
           printf "."
           sleep $SLEEP
       done
-      fi
       fi
