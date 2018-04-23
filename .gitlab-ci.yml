@@ -73,7 +73,7 @@ Functionize-cli Deployment:
         while true; do
             result=$(/usr/local/bin/functionize deployment-status-by-runid --runID $run_id)
             if [[ "$result" == *'"Status":"Completed"'* ]]; then
-          	   echo -e "\nCOMPLETED";
+          	   echo -e "\nStatus Success";
                break;
           fi
           if [ $(($(date +'%s') - $start)) -gt $TIMEOUT ]; then
