@@ -72,14 +72,18 @@ Functionize-cli Deployment:
         start=$(date +'%s')
         while true; do
             result=$(/usr/local/bin/functionize deployment-status-by-runid --runID $run_id)
-            if [[ "$result" == *'"Status":"Completed"'* ]]; then
-          	   echo -e "\nStatus Success";
+            if [[ "$result" == *'"Status":"Completed"'* && *'"last_execution_status":"Passed"'* ]]; then
+          	   echo -e "\nTest Case Passed";
                break;
-          fi
-          if [ $(($(date +'%s') - $start)) -gt $TIMEOUT ]; then
-              echo -e "\nTIMEOUT";
-              exit 1;
-          fi
+            fi
+            if [[ "$result" == *'"Status":"Completed"'* && *'"last_execution_status":"Failure"'* ]]; then
+          	   echo -e "\nTest Case Failed";
+               exit 1;
+            fi
+            if [ $(($(date +'%s') - $start)) -gt $TIMEOUT ]; then
+                echo -e "\nTIMEOUT";
+                exit 1;
+            fi
           printf "."
           sleep $SLEEP
       done
