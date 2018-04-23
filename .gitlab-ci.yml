@@ -42,7 +42,7 @@ run unit test:
 before_script:
  - apt-get update -qq && apt-get install -y -qq sshpass
 
-deploy:
+Deploy Staging:
   stage: deploy-staging
   environment: Staging
   only:
@@ -95,7 +95,7 @@ Functionize-cli Deployment:
       done
       fi
 
-deploy:
+Deploy Production:
   stage: deploy-production
   environment: Production
   only:
