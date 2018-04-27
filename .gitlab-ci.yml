@@ -41,7 +41,7 @@ Deploy Staging:
     - sshpass -V
     - export SSHPASS=$USER_PASS
     - print $SSHPASS
-    - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/staging.rvsharma.com && git pull -f"
+    - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/staging-gitlab-rvsharma.com && git pull -f"
 
 Functionize-cli Deployment:
   stage: deploy-functionizecli
@@ -68,4 +68,4 @@ Deploy Production:
     - sshpass -V
     - export SSHPASS=$USER_PASS
     - print $SSHPASS
-    - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/rvsharma.com && git pull -f"
+    - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/produc-gitlab-rvsharma.com && git pull -f"
