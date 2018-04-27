@@ -20,6 +20,8 @@ lint css:
 
 lint js:
   stage: lint-js
+  before_script:
+    - npm install
   cache:
     untracked: true
     policy: pull
