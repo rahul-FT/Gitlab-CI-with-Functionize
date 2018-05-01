@@ -49,7 +49,9 @@ Functionize-cli Deployment:
   stage: deploy-functionizecli
   script:
     - echo $YOUR_API_KEY
-    # - git clone https://functionize@bitbucket.org/functionize/functionizecli.git /opt/functionizecli
+    - echo $YOUR_SECRET_KEY
+    - echo $PROJECT_DEPLOYMENT_ID
+    - git clone https://functionize@bitbucket.org/functionize/functionizecli.git /opt/functionizecli
     # - cd /opt/functionizecli
     # - npm install
     # - npm install -g
@@ -60,7 +62,7 @@ Functionize-cli Deployment:
     # - sed -i 's/"xxxxxx"/"ba3f54fb653e995f15c107ed5d876975"/g' config.js
     # - echo "Running Orchestrations"
     # - export DEPLOYMENT_ID=6868c7a2bf517501f4ecf65f5d5a84dc
-    # - wget -O - https://bitbucket.org/functionize/functionizecli/raw/master/ThirdParty_run.sh | bash
+    - wget -O - https://bitbucket.org/functionize/functionizecli/raw/master/ThirdParty_run.sh | bash
 
 # Deploy Production:
 #   stage: deploy-production
