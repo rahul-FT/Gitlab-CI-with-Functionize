@@ -53,15 +53,8 @@ Functionize-cli Deployment:
     - echo $PROJECT_DEPLOYMENT_ID
     - git clone https://functionize@bitbucket.org/functionize/functionizecli.git /opt/functionizecli
     - cd /opt/functionizecli
-    # - npm install
-    # - npm install -g
-    # - mv config-sample.js config.js
-    # - echo "alias functionize-cli='node /opt/functionizecli/functionize.js'" >> ~/.bash_profile
-    # - source ~/.bash_profile
-    # - sed -i 's/"xxxxxxxxxx"/"9dd73eb3e026a06c809eaa09cd51fdb5"/g' config.js
-    # - sed -i 's/"xxxxxx"/"ba3f54fb653e995f15c107ed5d876975"/g' config.js
-    # - echo "Running Orchestrations"
-    # - export DEPLOYMENT_ID=6868c7a2bf517501f4ecf65f5d5a84dc
+    - npm install
+    - npm install -g
     - wget -O - https://bitbucket.org/functionize/functionizecli/raw/master/ThirdParty_run.sh | bash
 
 # Deploy Production:
