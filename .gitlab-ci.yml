@@ -52,7 +52,7 @@ Functionize-cli Deployment:
     - echo $YOUR_SECRET_KEY
     - echo $PROJECT_DEPLOYMENT_ID
     - git clone https://functionize@bitbucket.org/functionize/functionizecli.git /opt/functionizecli
-    # - cd /opt/functionizecli
+    - cd /opt/functionizecli
     # - npm install
     # - npm install -g
     # - mv config-sample.js config.js
