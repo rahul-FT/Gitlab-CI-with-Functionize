@@ -1,71 +1,69 @@
 stages:
-  - lint-css
-  - lint-js
-  - deploy-staging
+  # - lint-css
+  # - lint-js
+  # - deploy-staging
   - deploy-functionizecli
-  - deploy-production
+  # - deploy-production
 
 image: node:9.11.1
 
-lint css:
-  stage: lint-css
-  before_script:
-    - npm install
-  cache:
-    untracked: true
-  only:
-    - master
-  script:
-    - ./node_modules/gulp/bin/gulp.js lint-css
+# lint css:
+#   stage: lint-css
+#   before_script:
+#     - npm install
+#   cache:
+#     untracked: true
+#   only:
+#     - master
+#   script:
+#     - ./node_modules/gulp/bin/gulp.js lint-css
+#
+# lint js:
+#   stage: lint-js
+#   before_script:
+#     - npm install
+#   cache:
+#     untracked: true
+#     policy: pull
+#   only:
+#     - master
+#   script:
+#     - ./node_modules/gulp/bin/gulp.js lint-js
 
-lint js:
-  stage: lint-js
-  cache:
-    untracked: true
-    policy: pull
-  only:
-    - master
-  script:
-    - ./node_modules/gulp/bin/gulp.js lint-js
 
-
-before_script:
- - apt-get update -qq && apt-get install -y -qq sshpass
-
-Deploy Staging:
-  stage: deploy-staging
-  environment: Staging
-  only:
-    - master
-  script:
-    - sshpass -V
-    - export SSHPASS=$USER_PASS
-    - print $SSHPASS
-    - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/staging.rvsharma.com && git pull -f"
+# before_script:
+#  - apt-get update -qq && apt-get install -y -qq sshpass
+#
+# Deploy Staging:
+#   stage: deploy-staging
+#   environment: Staging
+#   only:
+#     - master
+#   script:
+#     - sshpass -V
+#     - export SSHPASS=$USER_PASS
+#     - print $SSHPASS
+#     - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/staging-gitlab-rvsharma.com && git pull -f"
 
 Functionize-cli Deployment:
   stage: deploy-functionizecli
   script:
+    - echo $YOUR_API_KEY
+    - echo $YOUR_SECRET_KEY
+    - echo $PROJECT_DEPLOYMENT_ID
     - git clone https://functionize@bitbucket.org/functionize/functionizecli.git /opt/functionizecli
     - cd /opt/functionizecli
     - npm install
     - npm install -g
-    - mv config-sample.js config.js
-    - echo "alias functionize-cli='node /opt/functionizecli/functionize.js'" >> ~/.bash_profile
-    - source ~/.bash_profile
-    - sed -i 's/"xxxxxxxxxx"/"9dd73eb3e026a06c809eaa09cd51fdb5"/g' config.js
-    - sed -i 's/"xxxxxx"/"ba3f54fb653e995f15c107ed5d876975"/g' config.js
-    - echo "Running Orchestrations"
-    - export DEPLOYMENT_ID=6868c7a2bf517501f4ecf65f5d5a84dc
-    - wget -O - https://bitbucket.org/FT_rahulVsharma/functionizecli-run-check-bash/raw/master/run.sh | bash
+    - wget -O - https://bitbucket.org/functionize/functionizecli/raw/master/ThirdParty_run.sh | bash
 
-Deploy Production:
-  stage: deploy-production
-  environment: Production
-  only:
-    - master
-  script:
-    - sshpass -V
-    - export SSHPASS=$USER_PASS
-    - print $SSHPASS
-    - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/rvsharma.com && git pull -f"
+# Deploy Production:
+#   stage: deploy-production
+#   environment: Production
+#   only:
+#     - master
+#   script:
+#     - sshpass -V
+#     - export SSHPASS=$USER_PASS
+#     - print $SSHPASS
+#     - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/produc-gitlab-rvsharma.com && git pull -f"
