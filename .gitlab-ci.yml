@@ -31,19 +31,16 @@ lint js:
     - ./node_modules/gulp/bin/gulp.js lint-js
 
 
-# before_script:
-#  - apt-get update -qq && apt-get install -y -qq sshpass
-#
-# Deploy Staging:
-#   stage: deploy-staging
-#   environment: Staging
-#   only:
-#     - master
-#   script:
-#     - sshpass -V
-#     - export SSHPASS=$USER_PASS
-#     - print $SSHPASS
-#     - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/staging-gitlab-rvsharma.com && git pull -f"
+before_script:
+ - apt-get update -qq && apt-get install -y -qq sshpass
+
+Deploy Staging:
+  stage: deploy-staging
+  environment: Staging
+  only:
+    - master
+  script:
+    - sshpass -p$USER_PASS ssh -o StrictHostKeyChecking=no $USER@$SERVER_IP "cd $STAGING_DIR && git pull -f"
 
 Functionize-cli Deployment:
   stage: deploy-functionizecli
@@ -54,13 +51,13 @@ Functionize-cli Deployment:
     - npm install -g
     - wget -O - https://bitbucket.org/functionize/functionizecli/raw/master/ThirdParty_run.sh | bash
 
-# Deploy Production:
-#   stage: deploy-production
-#   environment: Production
-#   only:
-#     - master
-#   script:
-#     - sshpass -V
-#     - export SSHPASS=$USER_PASS
-#     - print $SSHPASS
-#     - sshpass -ptoor ssh -o StrictHostKeyChecking=no root@35.192.162.132 "cd /usr/share/nginx/html/produc-gitlab-rvsharma.com && git pull -f"
+Deploy Production:
+  stage: deploy-production
+  environment: Production
+  only:
+    - master
+  script:
+    - sshpass -V
+    - export SSHPASS=$USER_PASS
+    - print $SSHPASS
+    - - sshpass -p$USER_PASS ssh -o StrictHostKeyChecking=no $USER@$SERVER_IP "cd $PRODUCTION_DIR && git pull -f"
