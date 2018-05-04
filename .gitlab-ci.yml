@@ -1,9 +1,9 @@
 stages:
   - lint-css
   - lint-js
-  # - deploy-staging
+  - deploy-staging
   - deploy-functionizecli
-  # - deploy-production
+  - deploy-production
 
 image: node:9.11.1
 
