@@ -60,4 +60,4 @@ Deploy Production:
     - sshpass -V
     - export SSHPASS=$USER_PASS
     - print $SSHPASS
-    - - sshpass -p$USER_PASS ssh -o StrictHostKeyChecking=no $USER@$SERVER_IP "cd $PRODUCTION_DIR && git pull -f"
+    - sshpass -p$USER_PASS ssh -o StrictHostKeyChecking=no $USER@$SERVER_IP "cd $PRODUCTION_DIR && git pull -f"
