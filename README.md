@@ -4,7 +4,7 @@
   <br>
 </h1>
 <p align="center">
-<a href="https://gitlab.com/rahul28/Gitlab-CI-with-Functionize/commits/master"><img alt="pipeline status" src="https://gitlab.com/rahul28/Gitlab-CI-with-Functionize/badges/master/pipeline.svg" /></a>
+<img src="https://gitlab.com/rahul28/Gitlab-CI-with-Functionize/badges/master/pipeline.svg" /></a>
 <p align="center">
   This repository contains Example Of Intregrating <strong>Functionize Smart Testing Tool </strong>with <strong>Gitlab CI/CD</strong>
 </p>
